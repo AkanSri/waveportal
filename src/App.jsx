@@ -67,16 +67,19 @@ const App = () => {
 
         let count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
+        document.getElementById("text-box").innerHTML = "Retrieved total wave count..."+ count.toNumber();
+
 
         const waveTxn = await wavePortalContract.wave("message");
         console.log("Mining...", waveTxn.hash);
-
+        document.getElementById("text-box").innerHTML = "<img src='src/Spinner-1s-200px.gif' />"
+        
         await waveTxn.wait();
         console.log("Mined -- ", waveTxn.hash);
-
+        document.getElementById("text-box").innerHTML = "Wave Mined! Transaction hash: " + waveTxn.hash;
+          
         count = await wavePortalContract.getTotalWaves();
         console.log("Retrieved total wave count...", count.toNumber());
-        
       } else {
         console.log("Ethereum object doesn't exist!");
       }
@@ -110,7 +113,10 @@ const App = () => {
             Connect Wallet
           </button>
         )}
+        <div className="text-box" id="text-box"></div>
+      
       </div>
+      
     </div>
   );
 }
